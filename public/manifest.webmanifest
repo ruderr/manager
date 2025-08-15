@@ -3,8 +3,8 @@
   "short_name": "Manager Pro",
   "description": "Aplicación de gestión de proyectos optimizada para móviles. Gestiona tus proyectos, tareas y equipo de manera eficiente.",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "/manager/",
+  "start_url": "/manager/",
   "theme_color": "#6366f1",
   "background_color": "#f8fafc",
   "orientation": "portrait-primary",
@@ -66,7 +66,7 @@
       "name": "Nuevo Proyecto",
       "short_name": "Proyecto",
       "description": "Crear un nuevo proyecto",
-      "url": "./?action=new-project",
+      "url": "/manager/?action=new-project",
       "icons": [
         {
           "src": "icons/icon-96x96.png",
@@ -78,7 +78,7 @@
       "name": "Nueva Tarea",
       "short_name": "Tarea",
       "description": "Agregar una nueva tarea",
-      "url": "./?action=new-task",
+      "url": "/manager/?action=new-task",
       "icons": [
         {
           "src": "icons/icon-96x96.png",

@@ -29,14 +29,18 @@ try {
 
   // 4. Crear archivo 404.html para SPA routing
   console.log('📄 Creando archivo 404.html para SPA routing...');
-  const indexContent = fs.readFileSync('dist/manager/browser/index.html', 'utf8');
+  const indexContent = fs.readFileSync('dist/manager/browser/index.csr.html', 'utf8');
   fs.writeFileSync('dist/manager/browser/404.html', indexContent);
+  
+  // 5. Renombrar index.csr.html a index.html
+  console.log('📄 Renombrando index.csr.html a index.html...');
+  fs.copyFileSync('dist/manager/browser/index.csr.html', 'dist/manager/browser/index.html');
 
-  // 5. Crear archivo .nojekyll para evitar problemas con Jekyll
+  // 6. Crear archivo .nojekyll para evitar problemas con Jekyll
   console.log('📄 Creando archivo .nojekyll...');
   fs.writeFileSync('dist/manager/browser/.nojekyll', '');
 
-  // 6. Crear un directorio temporal para el deployment
+  // 7. Crear un directorio temporal para el deployment
   console.log('📁 Preparando archivos para deployment...');
   const deployDir = 'deploy-temp';
   if (fs.existsSync(deployDir)) {
@@ -44,7 +48,7 @@ try {
   }
   fs.mkdirSync(deployDir);
 
-  // 7. Copiar todos los archivos del directorio browser al directorio temporal
+  // 8. Copiar todos los archivos del directorio browser al directorio temporal
   const browserDir = 'dist/manager/browser';
   const copyRecursive = (src, dest) => {
     if (fs.statSync(src).isDirectory()) {
@@ -61,28 +65,28 @@ try {
   
   copyRecursive(browserDir, deployDir);
 
-  // 8. Inicializar git en el directorio temporal
+  // 9. Inicializar git en el directorio temporal
   console.log('🔧 Inicializando repositorio git...');
   execSync(`cd ${deployDir} && git init`, { stdio: 'inherit' });
 
-  // 9. Agregar todos los archivos
+  // 10. Agregar todos los archivos
   console.log('📦 Agregando archivos al repositorio...');
   execSync(`cd ${deployDir} && git add .`, { stdio: 'inherit' });
 
-  // 10. Commit de los cambios
+  // 11. Commit de los cambios
   console.log('💾 Haciendo commit de los cambios...');
   const commitMessage = `Deploy to GitHub Pages - ${new Date().toISOString()}`;
   execSync(`cd ${deployDir} && git commit -m "${commitMessage}"`, { stdio: 'inherit' });
 
-  // 11. Agregar el remote origin
+  // 12. Agregar el remote origin
   console.log('🔗 Configurando remote origin...');
   execSync(`cd ${deployDir} && git remote add origin https://github.com/ruderr/manager.git`, { stdio: 'inherit' });
 
-  // 12. Push a la rama gh-pages
+  // 13. Push a la rama gh-pages
   console.log('🚀 Haciendo push a la rama gh-pages...');
   execSync(`cd ${deployDir} && git push origin HEAD:gh-pages --force`, { stdio: 'inherit' });
 
-  // 13. Limpiar directorio temporal
+  // 14. Limpiar directorio temporal
   console.log('🧹 Limpiando archivos temporales...');
   fs.rmSync(deployDir, { recursive: true, force: true });
 

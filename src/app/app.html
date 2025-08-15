@@ -39,19 +39,19 @@
       <div class="welcome-card">
         <div class="welcome-content">
           <h2 class="welcome-title">¡Bienvenido de vuelta!</h2>
-          <p class="welcome-subtitle">Gestiona tus proyectos de manera eficiente</p>
+          <p class="welcome-subtitle">Gestiona tus restaurantes de manera eficiente</p>
           <div class="stats-grid">
             <div class="stat-item">
               <span class="stat-number">{{ stats().activeProjects }}</span>
-              <span class="stat-label">Proyectos Activos</span>
+              <span class="stat-label">Restaurantes Activos</span>
             </div>
             <div class="stat-item">
               <span class="stat-number">{{ stats().completedTasks }}</span>
-              <span class="stat-label">Tareas Completadas</span>
+              <span class="stat-label">Productos Monitoreados</span>
             </div>
             <div class="stat-item">
               <span class="stat-number">{{ stats().teamMembers }}</span>
-              <span class="stat-label">Miembros del Equipo</span>
+              <span class="stat-label">Reposiciones Pendientes</span>
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@
               <path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="action-title">Nuevo Proyecto</span>
+          <span class="action-title">Nuevo Pedido</span>
         </button>
         
         <button class="action-card" (click)="addTask()">
@@ -79,7 +79,7 @@
               <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="action-title">Agregar Tarea</span>
+          <span class="action-title">Agregar Alerta</span>
         </button>
         
         <button class="action-card" (click)="scheduleMeeting()">
@@ -91,7 +91,7 @@
               <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <span class="action-title">Programar Reunión</span>
+          <span class="action-title">Programar Pedido</span>
         </button>
         
         <button class="action-card" (click)="viewReports()">
@@ -112,7 +112,7 @@
     <!-- Recent Projects -->
     <section class="recent-projects">
       <div class="section-header">
-        <h3 class="section-title">Proyectos Recientes</h3>
+        <h3 class="section-title">Pedidos Recientes</h3>
         <button class="view-all-btn" (click)="viewAllProjects()">Ver Todos</button>
       </div>
       <div class="projects-list">
@@ -146,7 +146,7 @@
     <!-- Today's Tasks -->
     <section class="todays-tasks">
       <div class="section-header">
-        <h3 class="section-title">Tareas de Hoy</h3>
+        <h3 class="section-title">Pedidos de Hoy</h3>
         <button class="view-all-btn" (click)="viewAllTasks()">Ver Todas</button>
       </div>
       <div class="tasks-list">

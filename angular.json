@@ -72,8 +72,7 @@
               "serviceWorker": "ngsw-config.json",
               "optimization": true,
               "sourceMap": false,
-              "extractLicenses": true,
-              "baseHref": "/manager/"
+              "extractLicenses": true
             },
             "development": {
               "optimization": false,
