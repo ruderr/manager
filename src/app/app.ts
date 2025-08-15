@@ -49,24 +49,24 @@ export class App {
   protected readonly recentProjects = signal<Project[]>([
     {
       id: 1,
-      name: 'Rediseño Web',
-      description: 'Actualización completa del sitio web corporativo',
+      name: 'Reposición de frutas y vegetales',
+      description: 'Solicitud de frutas y vegetales al proveedor',
       status: 'en-progreso',
       progress: 75,
       color: '#6366f1'
     },
     {
       id: 2,
-      name: 'App Móvil',
-      description: 'Desarrollo de aplicación móvil para clientes',
+      name: 'Compra de bebidas',
+      description: 'Solicitud de bebidas al proveedor',
       status: 'planificando',
       progress: 25,
       color: '#10b981'
     },
     {
       id: 3,
-      name: 'Sistema CRM',
-      description: 'Implementación de sistema de gestión de clientes',
+      name: 'Reposición de productos de limpieza',
+      description: 'Solicitud de productos de limpieza al proveedor',
       status: 'completado',
       progress: 100,
       color: '#f59e0b'
@@ -77,28 +77,28 @@ export class App {
   protected readonly todaysTasks = signal<Task[]>([
     {
       id: 1,
-      title: 'Revisar propuestas de diseño',
+      title: 'Comprar aceite de oliva',
       time: '09:00',
       priority: 'alta',
       completed: false
     },
     {
       id: 2,
-      title: 'Reunión con el equipo de desarrollo',
+      title: 'Reponer leche',
       time: '11:30',
       priority: 'media',
       completed: true
     },
     {
       id: 3,
-      title: 'Preparar presentación para cliente',
+      title: 'Comprar camarones',
       time: '14:00',
       priority: 'alta',
       completed: false
     },
     {
       id: 4,
-      title: 'Actualizar documentación del proyecto',
+      title: 'Reponer bandejas y cubiertos',
       time: '16:30',
       priority: 'baja',
       completed: false
