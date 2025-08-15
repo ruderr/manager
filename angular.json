@@ -55,6 +55,26 @@
               "sourceMap": false,
               "extractLicenses": true
             },
+            "github-pages": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "1MB",
+                  "maximumError": "2MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "10kB",
+                  "maximumError": "15kB"
+                }
+              ],
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json",
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "baseHref": "/manager/"
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
