@@ -1,13 +1,25 @@
 {
-  "name": "manager",
-  "version": "0.0.0",
+  "name": "manager-pro",
+  "version": "1.0.0",
+  "description": "Aplicación de gestión de proyectos optimizada para móviles - PWA",
+  "keywords": ["angular", "pwa", "gestión", "proyectos", "móvil"],
+  "author": "Manager Pro Team",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
+    "build:dev": "ng build --configuration development",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:manager": "node dist/manager/server/server.mjs"
+    "test:watch": "ng test --watch",
+    "lint": "ng lint",
+    "serve:ssr:manager": "node dist/manager/server/server.mjs",
+    "serve:prod": "ng serve --configuration production",
+    "analyze": "ng build --configuration production --stats-json && npx webpack-bundle-analyzer dist/manager/browser/stats.json",
+    "deploy:prepare": "npm run build:prod && npm run test",
+    "pwa:test": "ng build --configuration production && npx lighthouse dist/manager/browser/index.html --output=html --output-path=./lighthouse-report.html"
   },
   "prettier": {
     "printWidth": 100,
@@ -50,5 +62,17 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.8.2"
-  }
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "iOS >= 12",
+    "Android >= 8"
+  ]
 }
