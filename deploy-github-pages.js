@@ -36,45 +36,67 @@ try {
   console.log('📄 Creando archivo .nojekyll...');
   fs.writeFileSync('dist/manager/browser/.nojekyll', '');
 
-  // 6. Inicializar git en el directorio dist si no existe
-  if (!fs.existsSync('dist/manager/.git')) {
-    console.log('🔧 Inicializando repositorio git en dist...');
-    execSync('cd dist/manager && git init', { stdio: 'inherit' });
+  // 6. Crear un directorio temporal para el deployment
+  console.log('📁 Preparando archivos para deployment...');
+  const deployDir = 'deploy-temp';
+  if (fs.existsSync(deployDir)) {
+    fs.rmSync(deployDir, { recursive: true, force: true });
   }
+  fs.mkdirSync(deployDir);
 
-  // 7. Agregar todos los archivos
+  // 7. Copiar todos los archivos del directorio browser al directorio temporal
+  const browserDir = 'dist/manager/browser';
+  const copyRecursive = (src, dest) => {
+    if (fs.statSync(src).isDirectory()) {
+      if (!fs.existsSync(dest)) {
+        fs.mkdirSync(dest, { recursive: true });
+      }
+      fs.readdirSync(src).forEach(file => {
+        copyRecursive(path.join(src, file), path.join(dest, file));
+      });
+    } else {
+      fs.copyFileSync(src, dest);
+    }
+  };
+  
+  copyRecursive(browserDir, deployDir);
+
+  // 8. Inicializar git en el directorio temporal
+  console.log('🔧 Inicializando repositorio git...');
+  execSync(`cd ${deployDir} && git init`, { stdio: 'inherit' });
+
+  // 9. Agregar todos los archivos
   console.log('📦 Agregando archivos al repositorio...');
-  execSync('cd dist/manager && git add .', { stdio: 'inherit' });
+  execSync(`cd ${deployDir} && git add .`, { stdio: 'inherit' });
 
-  // 8. Commit de los cambios
+  // 10. Commit de los cambios
   console.log('💾 Haciendo commit de los cambios...');
   const commitMessage = `Deploy to GitHub Pages - ${new Date().toISOString()}`;
-  execSync(`cd dist/manager && git commit -m "${commitMessage}"`, { stdio: 'inherit' });
+  execSync(`cd ${deployDir} && git commit -m "${commitMessage}"`, { stdio: 'inherit' });
 
-  // 9. Agregar el remote origin si no existe
+  // 11. Agregar el remote origin
   console.log('🔗 Configurando remote origin...');
-  try {
-    execSync('cd dist/manager && git remote get-url origin', { stdio: 'pipe' });
-  } catch (error) {
-    execSync('cd dist/manager && git remote add origin https://github.com/ruderr/manager.git', { stdio: 'inherit' });
-  }
+  execSync(`cd ${deployDir} && git remote add origin https://github.com/ruderr/manager.git`, { stdio: 'inherit' });
 
-  // 10. Push a la rama gh-pages
+  // 12. Push a la rama gh-pages
   console.log('🚀 Haciendo push a la rama gh-pages...');
-  execSync('cd dist/manager && git push origin HEAD:gh-pages --force', { stdio: 'inherit' });
+  execSync(`cd ${deployDir} && git push origin HEAD:gh-pages --force`, { stdio: 'inherit' });
+
+  // 13. Limpiar directorio temporal
+  console.log('🧹 Limpiando archivos temporales...');
+  fs.rmSync(deployDir, { recursive: true, force: true });
 
   console.log('\n✅ ¡Deployment completado exitosamente!');
   console.log('🌐 Tu aplicación estará disponible en: https://ruderr.github.io/manager/');
   console.log('\n📝 Notas importantes:');
   console.log('   - GitHub Pages puede tardar unos minutos en actualizar');
-  console.log('   - Asegúrate de que GitHub Pages esté habilitado en tu repositorio');
-  console.log('   - La rama gh-pages debe estar configurada como fuente en GitHub Pages');
+  console.log('   - La aplicación debería cargar correctamente ahora');
 
 } catch (error) {
   console.error('\n❌ Error durante el deployment:', error.message);
   console.log('\n🔧 Solución manual:');
   console.log('   1. Ejecuta: npm run build:github');
   console.log('   2. Ve al directorio: dist/manager/browser');
-  console.log('   3. Sube manualmente los archivos a la rama gh-pages');
+  console.log('   3. Sube manualmente los archivos a la raíz de la rama gh-pages');
   process.exit(1);
 }
